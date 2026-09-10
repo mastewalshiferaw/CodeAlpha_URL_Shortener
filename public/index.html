@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener | CodeAlpha</title>
+  <style>
+    /* Basic modern reset and typography */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: #0f172a; /* Dark sleek background */
+      color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 32px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid #334155;
+    }
+
+    h2 {
+      color: #38bdf8;
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 16px;
+      background: #0f172a;
+      border: 1px solid #475569;
+      color: #f8fafc;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #38bdf8;
+    }
+
+    button {
+      padding: 12px 20px;
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #0369a1;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Result boxes for displaying links or errors */
+    .result-box {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 8px;
+      display: none; /* Hidden until a request finishes */
+      font-size: 14px;
+      line-height: 1.6;
+      word-break: break-all;
+    }
+
+    .result-box.success {
+      background: #064e3b;
+      border: 1px solid #059669;
+      color: #a7f3d0;
+    }
+
+    .result-box.error {
+      background: #7f1d1d;
+      border: 1px solid #dc2626;
+      color: #fecaca;
+    }
+
+    .result-box a {
+      color: #38bdf8;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 6px 12px;
+      background: #059669;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>URL Shortener</h2>
+    <p class="subtitle">Enter any long URL to create a shareable short link.</p>
+
+    <div class="input-group">
+      <input type="text" id="urlInput" placeholder="https://example.com/very-long-url..." />
+      <button id="shortenBtn" onclick="handleShorten()">Shorten</button>
+    </div>
+
+    <div id="resultBox" class="result-box"></div>
+  </div>
+
+  <script>
+    async function handleShorten() {
+      const input = document.getElementById('urlInput');
+      const button = document.getElementById('shortenBtn');
+      const resultBox = document.getElementById('resultBox');
+      const rawUrl = input.value.trim();
+
+      // Simple frontend check before calling server
+      if (!rawUrl) {
+        displayMessage('Please enter a valid URL first.', false);
+        return;
+      }
+
+      // Disable button while processing
+      button.disabled = true;
+      button.innerText = 'Shortening...';
+
+      try {
+        // Send a POST request to our Express API endpoint
+        const response = await fetch('/api/shorten', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ url: rawUrl })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          
+          displayMessage(`
+            <strong>Success! Your short link:</strong><br>
+            <a href="${data.short_url}" target="_blank">${data.short_url}</a>
+          `, true);
+        } else {
+         
+          displayMessage(data.error || 'Unable to shorten this URL.', false);
+        }
+      } catch (err) {
+        
+        displayMessage('Cannot connect to server. Ensure "node server.js" is running.', false);
+      } finally {
+        button.disabled = false;
+        button.innerText = 'Shorten';
+      }
+    }
+
+    function displayMessage(htmlContent, isSuccess) {
+      const resultBox = document.getElementById('resultBox');
+      resultBox.className = 'result-box ' + (isSuccess ? 'success' : 'error');
+      resultBox.innerHTML = htmlContent;
+      resultBox.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

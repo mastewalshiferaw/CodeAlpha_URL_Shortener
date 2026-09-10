@@ -1,6 +1,5 @@
 const express = require('express'); 
-const sqlire3 = require('sqlire3').verbose();
-const path = require('path').verbose();
+const sqlite3 = require('sqlite3').verbose();
 
 const path = require('path');
 
@@ -35,7 +34,7 @@ function generateCode(length = 6){
     let result = '';
 
     for (let i=0; i<length; i++){
-        result += chars.charAt(Math.floor(Math.randon() * chars.length));
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
 
     }
     return result;
