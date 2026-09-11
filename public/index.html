@@ -3,196 +3,717 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URL Shortener | CodeAlpha</title>
+  <title>ShortLink Studio</title>
   <style>
-    /* Basic modern reset and typography */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
-      background: #0f172a; /* Dark sleek background */
-      color: #f8fafc;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background-color: #09090b; /* Deep Onyx / Matte Charcoal */
+      color: #e4e4e7;
       min-height: 100vh;
-      padding: 16px;
-    }
-
-    .card {
-      background: #1e293b;
-      padding: 32px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 500px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      border: 1px solid #334155;
-    }
-
-    h2 {
-      color: #38bdf8;
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    p.subtitle {
-      color: #94a3b8;
-      font-size: 14px;
-      margin-bottom: 24px;
-    }
-
-    .input-group {
+      padding: 48px 24px;
       display: flex;
-      gap: 10px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1060px;
+    }
+
+    /* Header */
+    header {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      color: #f4f4f5;
+    }
+
+    header h1 span {
+      color: #10b981; /* Emerald Green */
+    }
+
+    header p {
+      color: #71717a;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    /* Shorten Box Card */
+    .shorten-card {
+      background: #121215;
+      border: 1px solid #232328;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 12px;
     }
 
     input[type="text"] {
       flex: 1;
-      padding: 12px 16px;
-      background: #0f172a;
-      border: 1px solid #475569;
-      color: #f8fafc;
+      padding: 13px 18px;
+      background: #09090b;
+      border: 1px solid #27272a;
       border-radius: 8px;
-      font-size: 15px;
+      color: #f4f4f5;
+      font-size: 14.5px;
       outline: none;
       transition: border-color 0.2s;
     }
 
     input[type="text"]:focus {
-      border-color: #38bdf8;
+      border-color: #10b981;
     }
 
-    button {
-      padding: 12px 20px;
-      background: #0284c7;
-      color: #ffffff;
+    /* Solid Emerald Button */
+    button.btn-primary {
+      padding: 13px 26px;
+      background: #10b981;
+      color: #042416;
+      font-weight: 600;
+      font-size: 14px;
       border: none;
       border-radius: 8px;
-      font-weight: 600;
-      font-size: 15px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
-    button:hover {
-      background: #0369a1;
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* Result boxes for displaying links or errors */
-    .result-box {
-      margin-top: 20px;
-      padding: 16px;
-      border-radius: 8px;
-      display: none; /* Hidden until a request finishes */
-      font-size: 14px;
-      line-height: 1.6;
-      word-break: break-all;
-    }
-
-    .result-box.success {
-      background: #064e3b;
-      border: 1px solid #059669;
-      color: #a7f3d0;
-    }
-
-    .result-box.error {
-      background: #7f1d1d;
-      border: 1px solid #dc2626;
-      color: #fecaca;
-    }
-
-    .result-box a {
-      color: #38bdf8;
-      font-weight: bold;
-      text-decoration: underline;
-    }
-
-    .copy-btn {
-      margin-top: 10px;
-      display: inline-block;
-      padding: 6px 12px;
+    button.btn-primary:hover {
       background: #059669;
-      font-size: 12px;
-      border-radius: 4px;
+      color: #ffffff;
     }
+
+    /* Alert Banner */
+    .alert-banner {
+      display: none;
+      margin-top: 14px;
+      padding: 10px 16px;
+      background: #181414;
+      border-left: 3px solid #ef4444;
+      border-radius: 6px;
+      color: #fca5a5;
+      font-size: 13px;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Table Container */
+    .table-card {
+      background: #121215;
+      border: 1px solid #232328;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+
+    .table-header-title {
+      padding: 16px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #e4e4e7;
+      border-bottom: 1px solid #232328;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Header Controls (Toggles + Refresh) */
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Auto Refresh Switch */
+    .auto-sync-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #a1a1aa;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Modern Minimalist Toggle Switch */
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 34px;
+      height: 18px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #27272a;
+      transition: .3s;
+      border-radius: 20px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #a1a1aa;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #10b981;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(16px);
+      background-color: #042416;
+    }
+
+    /* Refresh Button */
+    .btn-refresh {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 6px;
+      color: #d4d4d8;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-refresh:hover {
+      background: #27272a;
+      color: #f4f4f5;
+    }
+
+    .refresh-icon.spinning {
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive Table */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+      min-width: 680px;
+    }
+
+    thead tr {
+      background: #0d0d0f;
+      color: #71717a;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.6px;
+    }
+
+    th, td {
+      padding: 15px 22px;
+      border-bottom: 1px solid #1c1c20;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: #16161a;
+    }
+
+    /* Columns */
+    .short-col {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .display-url {
+      font-weight: 500;
+      color: #f4f4f5;
+      cursor: pointer;
+    }
+
+    .display-url:hover {
+      color: #10b981;
+    }
+
+    .btn-copy {
+      background: transparent;
+      border: 1px solid #27272a;
+      border-radius: 5px;
+      color: #71717a;
+      padding: 5px 7px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: #27272a;
+      color: #f4f4f5;
+    }
+
+    .copy-tooltip {
+      position: absolute;
+      top: -26px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #10b981;
+      color: #042416;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .copy-tooltip.show {
+      opacity: 1;
+    }
+
+    .orig-col {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 300px;
+    }
+
+    .favicon {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      background: #18181b;
+      flex-shrink: 0;
+    }
+
+    .orig-link-text {
+      color: #a1a1aa;
+      text-decoration: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .orig-link-text:hover { color: #f4f4f5; }
+
+    /* QR Code Thumbnail */
+    .qr-thumb-wrap {
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .qr-thumb {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      background: #ffffff;
+      padding: 2px;
+      border: 1px solid #27272a;
+      transition: transform 0.2s;
+    }
+
+    .qr-thumb-wrap:hover .qr-thumb {
+      transform: scale(1.1);
+      border-color: #10b981;
+    }
+
+    /* Status Pill & Row Toggle */
+    .status-cell {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-pill.active {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .status-pill.paused {
+      background: rgba(113, 113, 122, 0.15);
+      color: #71717a;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .dot.active { background: #10b981; }
+    .dot.paused { background: #71717a; }
+
+    .date-col {
+      color: #71717a;
+      font-size: 13px;
+    }
+
+    /* QR Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .modal-box {
+      background: #141417;
+      border: 1px solid #27272a;
+      padding: 24px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 300px;
+      width: 90%;
+    }
+
+    .modal-box img {
+      width: 180px;
+      height: 180px;
+      border-radius: 8px;
+      margin: 16px 0;
+      background: #fff;
+      padding: 8px;
+    }
+
+    .modal-box button {
+      width: 100%;
+      padding: 10px;
+      background: #27272a;
+      color: #f4f4f5;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .modal-box button:hover { background: #3f3f46; }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>URL Shortener</h2>
-    <p class="subtitle">Enter any long URL to create a shareable short link.</p>
+  <div class="container">
+    <header>
+      <h1>ShortLink <span>Studio</span></h1>
+      <p>Clean, lightweight link routing built with Node.js & SQLite</p>
+    </header>
 
-    <div class="input-group">
-      <input type="text" id="urlInput" placeholder="https://example.com/very-long-url..." />
-      <button id="shortenBtn" onclick="handleShorten()">Shorten</button>
+    <!-- Shorten Input Card -->
+    <div class="shorten-card">
+      <div class="input-wrapper">
+        <input type="text" id="urlInput" placeholder="Paste your long link here (e.g. https://github.com/...)" />
+        <button class="btn-primary" id="shortenBtn" onclick="handleShorten()">Shorten Link</button>
+      </div>
+      <div id="alertBox" class="alert-banner">
+        <span>⚠️</span>
+        <span id="alertMsg">Please enter a valid link.</span>
+      </div>
     </div>
 
-    <div id="resultBox" class="result-box"></div>
+    <!-- Table Dashboard -->
+    <div class="table-card">
+      <div class="table-header-title">
+        <span>Saved Links</span>
+
+        <div class="header-controls">
+          <!-- Auto-Sync Toggle -->
+          <label class="auto-sync-wrap" title="Auto-refresh links every 5 seconds">
+            <div class="toggle-switch">
+              <input type="checkbox" id="autoSyncToggle" onchange="toggleAutoSync(this)">
+              <span class="slider"></span>
+            </div>
+            <span>Auto-sync</span>
+          </label>
+
+          <!-- Manual Refresh Button with spinning feedback -->
+          <button class="btn-refresh" id="refreshBtn" onclick="triggerManualRefresh()">
+            <span class="refresh-icon" id="refreshIcon">↻</span>
+            <span id="refreshLabel">Refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Short Link</th>
+              <th>Original Link</th>
+              <th>QR Code</th>
+              <th>Status & Toggle</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody id="linksTableBody">
+            <tr>
+              <td colspan="5" style="text-align: center; color: #71717a; padding: 32px;">Loading links...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Modal -->
+  <div id="qrModal" class="modal-overlay" onclick="closeQrModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h3 style="color: #f4f4f5; font-size: 16px;">QR Access</h3>
+      <p style="color: #71717a; font-size: 12px; margin-top: 4px;" id="qrModalLink"></p>
+      <img id="qrImage" src="" alt="QR Code" />
+      <button onclick="closeQrModal()">Close</button>
+    </div>
   </div>
 
   <script>
-    async function handleShorten() {
-      const input = document.getElementById('urlInput');
-      const button = document.getElementById('shortenBtn');
-      const resultBox = document.getElementById('resultBox');
-      const rawUrl = input.value.trim();
+    const SHOWCASE_DOMAIN = "short.studio";
+    let autoSyncInterval = null;
 
-      // Simple frontend check before calling server
-      if (!rawUrl) {
-        displayMessage('Please enter a valid URL first.', false);
-        return;
-      }
+    // Track toggled statuses locally for instant UI response
+    const statusState = {};
 
-      // Disable button while processing
-      button.disabled = true;
-      button.innerText = 'Shortening...';
+    window.addEventListener('DOMContentLoaded', () => {
+      loadLinks();
+    });
 
+    // Fetch and render links
+    async function loadLinks() {
       try {
-        // Send a POST request to our Express API endpoint
-        const response = await fetch('/api/shorten', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ url: rawUrl })
-        });
+        const res = await fetch('/api/links');
+        const links = await res.json();
+        const tbody = document.getElementById('linksTableBody');
 
-        const data = await response.json();
-
-        if (response.ok) {
-          
-          displayMessage(`
-            <strong>Success! Your short link:</strong><br>
-            <a href="${data.short_url}" target="_blank">${data.short_url}</a>
-          `, true);
-        } else {
-         
-          displayMessage(data.error || 'Unable to shorten this URL.', false);
+        if (links.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #71717a; padding: 32px;">No links shortened yet. Create one above!</td></tr>`;
+          return;
         }
+
+        tbody.innerHTML = links.map(link => {
+          let domain = 'web';
+          try { domain = new URL(link.original_url).hostname; } catch(e){}
+
+          const displayShortLink = `https://${SHOWCASE_DOMAIN}/${link.short_code}`;
+          const actualRedirectLink = link.short_url;
+
+          const date = new Date(link.created_at).toLocaleDateString('en-US', {
+            month: 'short', day: '2-digit', year: 'numeric'
+          });
+
+          const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(actualRedirectLink)}`;
+
+          // Check if user toggled this link to paused
+          const isPaused = statusState[link.short_code] === false;
+
+          return `
+            <tr>
+              <td>
+                <div class="short-col" style="position: relative;">
+                  <span class="display-url" onclick="window.open('${actualRedirectLink}', '_blank')" title="Visit short link">${displayShortLink}</span>
+                  <div style="position: relative; display: inline-block;">
+                    <span class="copy-tooltip" id="tip-${link.short_code}">Copied!</span>
+                    <button class="btn-copy" onclick="copyToClipboard('${displayShortLink}', '${link.short_code}')" title="Copy to clipboard">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="orig-col">
+                  <img class="favicon" src="https://www.google.com/s2/favicons?domain=${domain}&sz=32" alt="" onerror="this.style.display='none'" />
+                  <a class="orig-link-text" href="${link.original_url}" target="_blank" title="${link.original_url}">${link.original_url}</a>
+                </div>
+              </td>
+
+              <td>
+                <div class="qr-thumb-wrap" onclick="showQrModal('${displayShortLink}', '${qrUrl}')" title="Click to view QR Code">
+                  <img class="qr-thumb" src="${qrUrl}" alt="QR" />
+                </div>
+              </td>
+
+              <td>
+                <div class="status-cell">
+                  <span class="status-pill ${isPaused ? 'paused' : 'active'}" id="status-pill-${link.short_code}">
+                    <span class="dot ${isPaused ? 'paused' : 'active'}"></span>
+                    ${isPaused ? 'Paused' : 'Active'}
+                  </span>
+                  <!-- Interactive Row Toggle -->
+                  <label class="toggle-switch" title="Toggle Active / Paused">
+                    <input type="checkbox" ${isPaused ? '' : 'checked'} onchange="toggleLinkStatus('${link.short_code}', this)">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </td>
+
+              <td class="date-col">${date}</td>
+            </tr>
+          `;
+        }).join('');
       } catch (err) {
-        
-        displayMessage('Cannot connect to server. Ensure "node server.js" is running.', false);
-      } finally {
-        button.disabled = false;
-        button.innerText = 'Shorten';
+        console.error(err);
       }
     }
 
-    function displayMessage(htmlContent, isSuccess) {
-      const resultBox = document.getElementById('resultBox');
-      resultBox.className = 'result-box ' + (isSuccess ? 'success' : 'error');
-      resultBox.innerHTML = htmlContent;
-      resultBox.style.display = 'block';
+    // Manual Refresh with spinning animation
+    async function triggerManualRefresh() {
+      const icon = document.getElementById('refreshIcon');
+      const label = document.getElementById('refreshLabel');
+
+      icon.classList.add('spinning');
+      label.innerText = 'Syncing...';
+
+      await loadLinks();
+
+      setTimeout(() => {
+        icon.classList.remove('spinning');
+        label.innerText = 'Synced';
+        setTimeout(() => { label.innerText = 'Refresh'; }, 1200);
+      }, 400);
+    }
+
+    // Auto-Sync Toggle logic (every 5 seconds)
+    function toggleAutoSync(checkbox) {
+      if (checkbox.checked) {
+        autoSyncInterval = setInterval(loadLinks, 5000);
+      } else {
+        clearInterval(autoSyncInterval);
+      }
+    }
+
+    // Interactive Status Toggle per row
+    function toggleLinkStatus(code, checkbox) {
+      statusState[code] = checkbox.checked;
+      const pill = document.getElementById(`status-pill-${code}`);
+      if (checkbox.checked) {
+        pill.className = 'status-pill active';
+        pill.innerHTML = '<span class="dot active"></span> Active';
+      } else {
+        pill.className = 'status-pill paused';
+        pill.innerHTML = '<span class="dot paused"></span> Paused';
+      }
+    }
+
+    // Shorten action
+    async function handleShorten() {
+      const input = document.getElementById('urlInput');
+      const btn = document.getElementById('shortenBtn');
+      const url = input.value.trim();
+
+      hideAlert();
+
+      if (!url) {
+        showAlert('Please paste a link first.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = 'Creating...';
+
+      try {
+        const res = await fetch('/api/shorten', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          input.value = '';
+          loadLinks();
+        } else {
+          showAlert(data.error || 'Failed to shorten URL.');
+        }
+      } catch (e) {
+        showAlert('Server connection error.');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Shorten Link';
+      }
+    }
+
+    function showAlert(msg) {
+      const box = document.getElementById('alertBox');
+      document.getElementById('alertMsg').innerText = msg;
+      box.style.display = 'flex';
+    }
+
+    function hideAlert() {
+      document.getElementById('alertBox').style.display = 'none';
+    }
+
+    function copyToClipboard(text, id) {
+      navigator.clipboard.writeText(text);
+      const tip = document.getElementById(`tip-${id}`);
+      if (tip) {
+        tip.classList.add('show');
+        setTimeout(() => tip.classList.remove('show'), 1200);
+      }
+    }
+
+    function showQrModal(displayLink, qrImgSrc) {
+      document.getElementById('qrModalLink').innerText = displayLink;
+      document.getElementById('qrImage').src = qrImgSrc;
+      document.getElementById('qrModal').style.display = 'flex';
+    }
+
+    function closeQrModal() {
+      document.getElementById('qrModal').style.display = 'none';
     }
   </script>
 </body>
