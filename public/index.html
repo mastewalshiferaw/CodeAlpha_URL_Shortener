@@ -13,7 +13,7 @@
     }
 
     body {
-      background-color: #09090b; /* Deep Onyx / Matte Charcoal */
+      background-color: #09090b;
       color: #e4e4e7;
       min-height: 100vh;
       padding: 48px 24px;
@@ -24,10 +24,9 @@
 
     .container {
       width: 100%;
-      max-width: 1060px;
+      max-width: 1080px;
     }
 
-    /* Header */
     header {
       margin-bottom: 32px;
       text-align: center;
@@ -40,17 +39,9 @@
       color: #f4f4f5;
     }
 
-    header h1 span {
-      color: #10b981; /* Emerald Green */
-    }
+    header h1 span { color: #10b981; }
+    header p { color: #71717a; font-size: 14px; margin-top: 6px; }
 
-    header p {
-      color: #71717a;
-      font-size: 14px;
-      margin-top: 6px;
-    }
-
-    /* Shorten Box Card */
     .shorten-card {
       background: #121215;
       border: 1px solid #232328;
@@ -77,11 +68,8 @@
       transition: border-color 0.2s;
     }
 
-    input[type="text"]:focus {
-      border-color: #10b981;
-    }
+    input[type="text"]:focus { border-color: #10b981; }
 
-    /* Solid Emerald Button */
     button.btn-primary {
       padding: 13px 26px;
       background: #10b981;
@@ -95,12 +83,8 @@
       white-space: nowrap;
     }
 
-    button.btn-primary:hover {
-      background: #059669;
-      color: #ffffff;
-    }
+    button.btn-primary:hover { background: #059669; color: #ffffff; }
 
-    /* Alert Banner */
     .alert-banner {
       display: none;
       margin-top: 14px;
@@ -114,7 +98,6 @@
       gap: 8px;
     }
 
-    /* Table Container */
     .table-card {
       background: #121215;
       border: 1px solid #232328;
@@ -136,14 +119,12 @@
       gap: 12px;
     }
 
-    /* Header Controls (Toggles + Refresh) */
     .header-controls {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }
 
-    /* Auto Refresh Switch */
     .auto-sync-wrap {
       display: flex;
       align-items: center;
@@ -154,7 +135,6 @@
       user-select: none;
     }
 
-    /* Modern Minimalist Toggle Switch */
     .toggle-switch {
       position: relative;
       display: inline-block;
@@ -162,11 +142,7 @@
       height: 18px;
     }
 
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
 
     .slider {
       position: absolute;
@@ -189,17 +165,10 @@
       border-radius: 50%;
     }
 
-    input:checked + .slider {
-      background-color: #10b981;
-    }
+    input:checked + .slider { background-color: #10b981; }
+    input:checked + .slider:before { transform: translateX(16px); background-color: #042416; }
 
-    input:checked + .slider:before {
-      transform: translateX(16px);
-      background-color: #042416;
-    }
-
-    /* Refresh Button */
-    .btn-refresh {
+    .btn-action {
       background: #18181b;
       border: 1px solid #27272a;
       border-radius: 6px;
@@ -213,32 +182,29 @@
       transition: all 0.2s;
     }
 
-    .btn-refresh:hover {
-      background: #27272a;
-      color: #f4f4f5;
+    .btn-action:hover { background: #27272a; color: #f4f4f5; }
+
+    .btn-danger {
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+      color: #fca5a5;
     }
 
-    .refresh-icon.spinning {
-      animation: spin 0.6s linear infinite;
-    }
+    .refresh-icon.spinning { animation: spin 0.6s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Responsive Table */
-    .table-responsive {
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
+    .table-responsive { width: 100%; overflow-x: auto; }
 
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
       font-size: 14px;
-      min-width: 680px;
+      min-width: 720px;
     }
 
     thead tr {
@@ -250,37 +216,19 @@
     }
 
     th, td {
-      padding: 15px 22px;
+      padding: 14px 20px;
       border-bottom: 1px solid #1c1c20;
       vertical-align: middle;
     }
 
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: #16161a; }
 
-    tbody tr:hover {
-      background: #16161a;
-    }
+    .short-col { display: inline-flex; align-items: center; gap: 8px; }
+    .display-url { font-weight: 500; color: #f4f4f5; cursor: pointer; }
+    .display-url:hover { color: #10b981; }
 
-    /* Columns */
-    .short-col {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .display-url {
-      font-weight: 500;
-      color: #f4f4f5;
-      cursor: pointer;
-    }
-
-    .display-url:hover {
-      color: #10b981;
-    }
-
-    .btn-copy {
+    .btn-icon {
       background: transparent;
       border: 1px solid #27272a;
       border-radius: 5px;
@@ -292,10 +240,8 @@
       transition: all 0.2s;
     }
 
-    .btn-copy:hover {
-      background: #27272a;
-      color: #f4f4f5;
-    }
+    .btn-icon:hover { background: #27272a; color: #f4f4f5; }
+    .btn-icon.delete:hover { border-color: #ef4444; color: #ef4444; }
 
     .copy-tooltip {
       position: absolute;
@@ -313,16 +259,13 @@
       transition: opacity 0.2s;
       white-space: nowrap;
     }
-
-    .copy-tooltip.show {
-      opacity: 1;
-    }
+    .copy-tooltip.show { opacity: 1; }
 
     .orig-col {
       display: flex;
       align-items: center;
       gap: 10px;
-      max-width: 300px;
+      max-width: 260px;
     }
 
     .favicon {
@@ -342,12 +285,6 @@
     }
     .orig-link-text:hover { color: #f4f4f5; }
 
-    /* QR Code Thumbnail */
-    .qr-thumb-wrap {
-      cursor: pointer;
-      display: inline-block;
-    }
-
     .qr-thumb {
       width: 28px;
       height: 28px;
@@ -355,55 +292,31 @@
       background: #ffffff;
       padding: 2px;
       border: 1px solid #27272a;
+      cursor: pointer;
       transition: transform 0.2s;
     }
+    .qr-thumb:hover { transform: scale(1.1); border-color: #10b981; }
 
-    .qr-thumb-wrap:hover .qr-thumb {
-      transform: scale(1.1);
-      border-color: #10b981;
-    }
-
-    /* Status Pill & Row Toggle */
-    .status-cell {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .status-cell { display: inline-flex; align-items: center; gap: 8px; }
     .status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       padding: 3px 8px;
       border-radius: 12px;
       font-size: 12px;
       font-weight: 600;
     }
+    .status-pill.active { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .status-pill.paused { background: rgba(113, 113, 122, 0.15); color: #71717a; }
 
-    .status-pill.active {
-      background: rgba(16, 185, 129, 0.1);
-      color: #10b981;
-    }
-
-    .status-pill.paused {
-      background: rgba(113, 113, 122, 0.15);
-      color: #71717a;
-    }
-
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; }
     .dot.active { background: #10b981; }
     .dot.paused { background: #71717a; }
 
-    .date-col {
-      color: #71717a;
-      font-size: 13px;
-    }
+    .date-col { color: #71717a; font-size: 13px; white-space: nowrap; }
 
-    /* QR Modal */
+    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -455,7 +368,6 @@
       <p>Clean, lightweight link routing built with Node.js & SQLite</p>
     </header>
 
-    <!-- Shorten Input Card -->
     <div class="shorten-card">
       <div class="input-wrapper">
         <input type="text" id="urlInput" placeholder="Paste your long link here (e.g. https://github.com/...)" />
@@ -467,13 +379,11 @@
       </div>
     </div>
 
-    <!-- Table Dashboard -->
     <div class="table-card">
       <div class="table-header-title">
         <span>Saved Links</span>
 
         <div class="header-controls">
-          <!-- Auto-Sync Toggle -->
           <label class="auto-sync-wrap" title="Auto-refresh links every 5 seconds">
             <div class="toggle-switch">
               <input type="checkbox" id="autoSyncToggle" onchange="toggleAutoSync(this)">
@@ -482,10 +392,14 @@
             <span>Auto-sync</span>
           </label>
 
-          <!-- Manual Refresh Button with spinning feedback -->
-          <button class="btn-refresh" id="refreshBtn" onclick="triggerManualRefresh()">
+          <button class="btn-action" id="refreshBtn" onclick="triggerManualRefresh()">
             <span class="refresh-icon" id="refreshIcon">↻</span>
             <span id="refreshLabel">Refresh</span>
+          </button>
+
+          <!-- Clear All History Button -->
+          <button class="btn-action btn-danger" onclick="clearAllHistory()" title="Clear all saved links">
+            🗑️ Clear All
           </button>
         </div>
       </div>
@@ -497,13 +411,14 @@
               <th>Short Link</th>
               <th>Original Link</th>
               <th>QR Code</th>
-              <th>Status & Toggle</th>
+              <th>Status</th>
               <th>Created</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="linksTableBody">
             <tr>
-              <td colspan="5" style="text-align: center; color: #71717a; padding: 32px;">Loading links...</td>
+              <td colspan="6" style="text-align: center; color: #71717a; padding: 32px;">Loading links...</td>
             </tr>
           </tbody>
         </table>
@@ -511,7 +426,6 @@
     </div>
   </div>
 
-  <!-- QR Modal -->
   <div id="qrModal" class="modal-overlay" onclick="closeQrModal()">
     <div class="modal-box" onclick="event.stopPropagation()">
       <h3 style="color: #f4f4f5; font-size: 16px;">QR Access</h3>
@@ -524,15 +438,10 @@
   <script>
     const SHOWCASE_DOMAIN = "short.studio";
     let autoSyncInterval = null;
-
-    // Track toggled statuses locally for instant UI response
     const statusState = {};
 
-    window.addEventListener('DOMContentLoaded', () => {
-      loadLinks();
-    });
+    window.addEventListener('DOMContentLoaded', loadLinks);
 
-    // Fetch and render links
     async function loadLinks() {
       try {
         const res = await fetch('/api/links');
@@ -540,7 +449,7 @@
         const tbody = document.getElementById('linksTableBody');
 
         if (links.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #71717a; padding: 32px;">No links shortened yet. Create one above!</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #71717a; padding: 32px;">No links saved. Create one above!</td></tr>`;
           return;
         }
 
@@ -556,8 +465,6 @@
           });
 
           const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(actualRedirectLink)}`;
-
-          // Check if user toggled this link to paused
           const isPaused = statusState[link.short_code] === false;
 
           return `
@@ -567,7 +474,7 @@
                   <span class="display-url" onclick="window.open('${actualRedirectLink}', '_blank')" title="Visit short link">${displayShortLink}</span>
                   <div style="position: relative; display: inline-block;">
                     <span class="copy-tooltip" id="tip-${link.short_code}">Copied!</span>
-                    <button class="btn-copy" onclick="copyToClipboard('${displayShortLink}', '${link.short_code}')" title="Copy to clipboard">
+                    <button class="btn-icon" onclick="copyToClipboard('${displayShortLink}', '${link.short_code}')" title="Copy to clipboard">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                     </button>
                   </div>
@@ -582,9 +489,7 @@
               </td>
 
               <td>
-                <div class="qr-thumb-wrap" onclick="showQrModal('${displayShortLink}', '${qrUrl}')" title="Click to view QR Code">
-                  <img class="qr-thumb" src="${qrUrl}" alt="QR" />
-                </div>
+                <img class="qr-thumb" src="${qrUrl}" alt="QR" onclick="showQrModal('${displayShortLink}', '${qrUrl}')" title="View QR Code" />
               </td>
 
               <td>
@@ -593,7 +498,6 @@
                     <span class="dot ${isPaused ? 'paused' : 'active'}"></span>
                     ${isPaused ? 'Paused' : 'Active'}
                   </span>
-                  <!-- Interactive Row Toggle -->
                   <label class="toggle-switch" title="Toggle Active / Paused">
                     <input type="checkbox" ${isPaused ? '' : 'checked'} onchange="toggleLinkStatus('${link.short_code}', this)">
                     <span class="slider"></span>
@@ -602,6 +506,13 @@
               </td>
 
               <td class="date-col">${date}</td>
+
+              <!-- Individual Delete Action -->
+              <td>
+                <button class="btn-icon delete" onclick="deleteSingleLink('${link.short_code}')" title="Delete this link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+              </td>
             </tr>
           `;
         }).join('');
@@ -610,7 +521,36 @@
       }
     }
 
-    // Manual Refresh with spinning animation
+    // Clear ALL history
+    async function clearAllHistory() {
+      if (!confirm('Are you sure you want to delete all saved links?')) return;
+
+      try {
+        const res = await fetch('/api/links', { method: 'DELETE' });
+        if (res.ok) {
+          loadLinks();
+        } else {
+          alert('Failed to clear links.');
+        }
+      } catch (e) {
+        alert('Server error.');
+      }
+    }
+
+    // Delete single link
+    async function deleteSingleLink(code) {
+      try {
+        const res = await fetch(`/api/links/${code}`, { method: 'DELETE' });
+        if (res.ok) {
+          loadLinks();
+        } else {
+          alert('Failed to delete.');
+        }
+      } catch (e) {
+        alert('Server error.');
+      }
+    }
+
     async function triggerManualRefresh() {
       const icon = document.getElementById('refreshIcon');
       const label = document.getElementById('refreshLabel');
@@ -623,11 +563,10 @@
       setTimeout(() => {
         icon.classList.remove('spinning');
         label.innerText = 'Synced';
-        setTimeout(() => { label.innerText = 'Refresh'; }, 1200);
-      }, 400);
+        setTimeout(() => { label.innerText = 'Refresh'; }, 1000);
+      }, 350);
     }
 
-    // Auto-Sync Toggle logic (every 5 seconds)
     function toggleAutoSync(checkbox) {
       if (checkbox.checked) {
         autoSyncInterval = setInterval(loadLinks, 5000);
@@ -636,7 +575,6 @@
       }
     }
 
-    // Interactive Status Toggle per row
     function toggleLinkStatus(code, checkbox) {
       statusState[code] = checkbox.checked;
       const pill = document.getElementById(`status-pill-${code}`);
@@ -649,14 +587,12 @@
       }
     }
 
-    // Shorten action
     async function handleShorten() {
       const input = document.getElementById('urlInput');
       const btn = document.getElementById('shortenBtn');
       const url = input.value.trim();
 
       hideAlert();
-
       if (!url) {
         showAlert('Please paste a link first.');
         return;
