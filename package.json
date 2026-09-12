@@ -1,27 +1,16 @@
 {
   "name": "codealpha_url_shortener",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A URL shortener built with Node.js, Express, and SQLite",
+  "main": "server.js",
   "scripts": {
-    
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mastewalshiferaw/CodeAlpha_URL_Shortener.git"
+  "engines": {
+    "node": "20.x"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/mastewalshiferaw/CodeAlpha_URL_Shortener/issues"
-  },
-  "homepage": "https://github.com/mastewalshiferaw/CodeAlpha_URL_Shortener#readme",
   "dependencies": {
-    "express": "^5.2.1",
-    "sqlite3": "^6.0.1"
+    "express": "^4.21.0",
+    "sqlite3": "^5.1.7"
   }
 }
