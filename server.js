@@ -32,10 +32,10 @@ db.run(`
   )
 `);
 
-// Safe migration: add clicks column if table was already created without it
+
 db.run(`ALTER TABLE urls ADD COLUMN clicks INTEGER DEFAULT 0`, () => {});
 
-// Helper to generate a random 6-character code
+
 function generateCode(length = 6) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
@@ -45,7 +45,7 @@ function generateCode(length = 6) {
   return result;
 }
 
-// 1. API: Shorten URL
+// API: Shorten URL
 app.post('/api/shorten', (req, res) => {
   let { url } = req.body;
 
@@ -85,7 +85,7 @@ app.post('/api/shorten', (req, res) => {
   });
 });
 
-// 2. API: Get all links for the table dashboard
+// API: Get all links for the table dashboard
 app.get('/api/links', (req, res) => {
   db.all('SELECT * FROM urls ORDER BY created_at DESC', [], (err, rows) => {
     if (err) return res.status(500).json({ error: 'Failed to retrieve links.' });
@@ -100,7 +100,7 @@ app.get('/api/links', (req, res) => {
   });
 });
 
-// 3. Redirect Route: Tracks click count and redirects
+//Redirect Route: Tracks click count and redirects
 app.get('/:code', (req, res) => {
   const { code } = req.params;
 
